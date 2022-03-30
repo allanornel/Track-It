@@ -10,7 +10,8 @@ export default function PaginaInicial() {
     password: "",
   });
 
-  function login() {
+  function login(e) {
+    e.preventDefault();
     const URL =
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login";
     const promise = axios.post(URL, objLogin);
@@ -25,7 +26,7 @@ export default function PaginaInicial() {
     <>
       <Container>
         <img src={logo} alt="" />
-        <Form>
+        <Form onSubmit={(e) => login(e)}>
           <input
             type="email"
             value={objLogin.email}
@@ -44,9 +45,7 @@ export default function PaginaInicial() {
               setObjLogin({ ...objLogin, password: e.target.value })
             }
           />
-          <button type="button" onClick={login}>
-            Entrar
-          </button>
+          <button>Entrar</button>
         </Form>
         <Link to={"/cadastro"}>
           <p>Não tem uma conta? Cadastre-se</p>

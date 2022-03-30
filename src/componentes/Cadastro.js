@@ -1,18 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "./../assets/img/logo.svg";
 import styled from "styled-components";
 import { useState } from "react";
 import axios from "axios";
 
 export default function Cadastro() {
+  const [disabled, setDisabled] = useState(false);
   const [objCadastro, setObjCadastro] = useState({
     email: "",
     name: "",
     image: "",
     password: "",
   });
+  let navigate = useNavigate();
 
-  function signUp() {
+  function signUp(e) {
+    e.preventDefault();
+    setDisabled(true);
     console.log(objCadastro);
     const URL =
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
@@ -20,16 +24,23 @@ export default function Cadastro() {
     promise.then((response) => {
       const { data } = response;
       console.log(data);
+      navigate("/");
     });
-    promise.catch((err) => console.log(err));
+    promise.catch((err) => {
+      console.log(err.response);
+      console.log(err.response.status);
+      alert("Houve falha no cadastro!!!");
+      setDisabled(false);
+    });
   }
 
   return (
     <>
       <Container>
         <img src={logo} alt="" />
-        <Form>
+        <Form onSubmit={(e) => signUp(e)}>
           <input
+            disabled={disabled}
             type="email"
             placeholder="email"
             value={objCadastro.email}
@@ -39,6 +50,7 @@ export default function Cadastro() {
             }
           />
           <input
+            disabled={disabled}
             type="password"
             placeholder="senha"
             value={objCadastro.password}
@@ -48,6 +60,7 @@ export default function Cadastro() {
             }
           />
           <input
+            disabled={disabled}
             type="text"
             placeholder="nome"
             value={objCadastro.name}
@@ -57,6 +70,7 @@ export default function Cadastro() {
             }
           />
           <input
+            disabled={disabled}
             type="text"
             placeholder="foto"
             value={objCadastro.image}
@@ -65,13 +79,7 @@ export default function Cadastro() {
               setObjCadastro({ ...objCadastro, image: e.target.value })
             }
           />
-          <button
-            type="button"
-            onClick={() => {
-              console.log(objCadastro);
-              signUp();
-            }}
-          >
+          <button disabled={disabled} type="submit">
             Cadastrar
           </button>
         </Form>
