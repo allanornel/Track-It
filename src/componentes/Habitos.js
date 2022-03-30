@@ -1,8 +1,12 @@
 import styled from "styled-components";
 import Header from "./Header";
 import Footer from "./Footer";
+import { useState } from "react";
+import SelecaoDias from "./SelecaoDias";
 
 export default function Habitos() {
+  const [daysSelecionado, setDaysSelecionado] = useState([]);
+  const days = [0, 1, 2, 3, 4, 5, 6];
   return (
     <>
       <Header />
@@ -17,7 +21,17 @@ export default function Habitos() {
           <CriacaoHabito>
             <form>
               <input placeholder="nome do hábito" required></input>
+
               <Dias>
+                {days.map((day) => {
+                  return (
+                    <SelecaoDias
+                      id={day}
+                      daysSelecionado={daysSelecionado}
+                      setDaysSelecionado={setDaysSelecionado}
+                    />
+                  );
+                })}
                 <div>D</div>
                 <div>S</div>
                 <div>T</div>
@@ -26,6 +40,8 @@ export default function Habitos() {
                 <div>S</div>
                 <div>S</div>
               </Dias>
+              <p>Cancelar</p>
+              <button>Salvar</button>
             </form>
           </CriacaoHabito>
           <NenhumHabito>
