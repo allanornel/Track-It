@@ -1,10 +1,14 @@
 import styled from "styled-components";
-export default function Header({ image }) {
+import { useContext } from "react";
+import UserContext from "./../context/UserContext";
+
+export default function Header() {
+  const { user, setUser } = useContext(UserContext);
   return (
     <>
       <Container>
         <h1>TrackIt</h1>
-        <img src={image} alt=""></img>
+        <img src={user.image} alt=""></img>
       </Container>
     </>
   );

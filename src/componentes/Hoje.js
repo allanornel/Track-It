@@ -1,21 +1,20 @@
 import axios from "axios";
-import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import UserContext from "./../context/UserContext";
 import Footer from "./Footer";
 import Header from "./Header";
 import styled from "styled-components";
 
 export default function Hoje() {
-  const location = useLocation();
+  const { user } = useContext(UserContext);
   const [habitos, setHabitos] = useState([]);
-  const { token, image } = location.state;
 
   useEffect(() => {
     const URL =
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today";
     const config = {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${user.token}`,
       },
     };
     const promise = axios.get(URL, config);
@@ -24,11 +23,11 @@ export default function Hoje() {
       setHabitos(response.data);
     });
     promise.catch((error) => console.log(error.data));
-  }, [token]);
+  }, [user.token]);
 
   return (
     <>
-      <Header image={image} />
+      <Header />
       <Main>
         <Container>
           <h2>Segunda, 17/05</h2>

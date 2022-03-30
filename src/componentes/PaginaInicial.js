@@ -1,10 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import logo from "./../assets/img/logo.svg";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
+import UserContext from "./../context/UserContext";
 
 export default function PaginaInicial() {
+  const { user, setUser } = useContext(UserContext);
   const [disabled, setDisabled] = useState(false);
   const [objLogin, setObjLogin] = useState({
     email: "",
@@ -22,11 +24,8 @@ export default function PaginaInicial() {
 
       const { data } = promise;
       console.log(data);
-      const dadosLogin = {
-        token: data.token,
-        image: data.image,
-      };
-      navigate("/hoje", { state: dadosLogin });
+      setUser({ token: data.token, image: data.image });
+      navigate("/hoje");
     } catch (error) {
       console.log(error.response);
       console.log(error.response.status);
