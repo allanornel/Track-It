@@ -14,24 +14,23 @@ export default function Cadastro() {
   });
   let navigate = useNavigate();
 
-  function signUp(e) {
+  async function signUp(e) {
     e.preventDefault();
     setDisabled(true);
     console.log(objCadastro);
     const URL =
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
-    const promise = axios.post(URL, objCadastro);
-    promise.then((response) => {
-      const { data } = response;
+    try {
+      const promise = await axios.post(URL, objCadastro);
+      const { data } = promise;
       console.log(data);
       navigate("/");
-    });
-    promise.catch((err) => {
-      console.log(err.response);
-      console.log(err.response.status);
+    } catch (error) {
+      console.log(error.response);
+      console.log(error.response.status);
       alert("Houve falha no cadastro!!!");
       setDisabled(false);
-    });
+    }
   }
 
   return (

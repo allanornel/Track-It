@@ -1,25 +1,38 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "./../assets/img/logo.svg";
 import styled from "styled-components";
 import { useState } from "react";
 import axios from "axios";
 
 export default function PaginaInicial() {
+  const [disabled, setDisabled] = useState(false);
   const [objLogin, setObjLogin] = useState({
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
 
-  function login(e) {
+  async function login(e) {
     e.preventDefault();
+    setDisabled(true);
     const URL =
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login";
-    const promise = axios.post(URL, objLogin);
-    promise.then((response) => {
-      const { data } = response;
+    try {
+      const promise = await axios.post(URL, objLogin);
+
+      const { data } = promise;
       console.log(data);
-    });
-    promise.catch((err) => console.log(err.data));
+      const dadosLogin = {
+        token: data.token,
+        image: data.image,
+      };
+      navigate("/hoje", { state: dadosLogin });
+    } catch (error) {
+      console.log(error.response);
+      console.log(error.response.status);
+      alert("Houve falha no Login!");
+      setDisabled(false);
+    }
   }
 
   return (
@@ -32,6 +45,7 @@ export default function PaginaInicial() {
             value={objLogin.email}
             placeholder="email"
             required
+            disabled={disabled}
             onChange={(e) =>
               setObjLogin({ ...objLogin, email: e.target.value })
             }
@@ -41,6 +55,7 @@ export default function PaginaInicial() {
             value={objLogin.password}
             placeholder="senha"
             required
+            disabled={disabled}
             onChange={(e) =>
               setObjLogin({ ...objLogin, password: e.target.value })
             }
