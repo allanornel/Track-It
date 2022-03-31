@@ -129,7 +129,7 @@ const Main = styled.main`
   background: #f2f2f2;
   margin-top: 71px;
   height: 100vh;
-  margin-bottom: 90px;
+  margin-bottom: 71px;
 
   h2 {
     font-size: 22.976px;

@@ -4,6 +4,7 @@ import UserContext from "./../context/UserContext";
 import Footer from "./Footer";
 import Header from "./Header";
 import styled from "styled-components";
+import HabitoDia from "./HabitoDia";
 
 export default function Hoje() {
   const { user } = useContext(UserContext);
@@ -35,12 +36,20 @@ export default function Hoje() {
         </Container>
         <div>
           {habitos.map((habito) => {
+            console.log(habito);
             return (
               <>
-                <p>{habito.name}</p>
-                <p>{habito.done}</p>
-                <p>{habito.currentSequence}</p>
-                <p>{habito.HighestSequence}</p>
+                <HabitoDia
+                  name={habito.name}
+                  done={habito.done}
+                  currentSequence={habito.currentSequence}
+                  highestSequence={habito.highestSequence}
+                  id={habito.id}
+                />
+                <p>Nome: {habito.name}</p>
+                <p>Done: {habito.done}</p>
+                <p>Sequencia atual: {habito.currentSequence} dias</p>
+                <p>Maior Sequencia: {habito.highestSequence} dias</p>
               </>
             );
           })}
