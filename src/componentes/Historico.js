@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useContext, useState } from "react";
 import UserContext from "../context/UserContext";
+import Footer from "./Footer";
+import Header from "./Header";
 
 export default function Historico() {
   const [histHabitos, setHistHabitos] = useState([]);
@@ -24,6 +26,7 @@ export default function Historico() {
 
   return (
     <>
+      <Header />
       {histHabitos.map((habito) => {
         return (
           <>
@@ -37,6 +40,7 @@ export default function Historico() {
           </>
         );
       })}
+      <Footer />
     </>
   );
 }

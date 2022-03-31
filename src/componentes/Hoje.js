@@ -40,16 +40,13 @@ export default function Hoje() {
             return (
               <>
                 <HabitoDia
+                  key={habito.id + habito.name}
                   name={habito.name}
-                  done={habito.done}
+                  done={habito.done ? 1 : 0}
                   currentSequence={habito.currentSequence}
                   highestSequence={habito.highestSequence}
                   id={habito.id}
                 />
-                <p>Nome: {habito.name}</p>
-                <p>Done: {habito.done}</p>
-                <p>Sequencia atual: {habito.currentSequence} dias</p>
-                <p>Maior Sequencia: {habito.highestSequence} dias</p>
               </>
             );
           })}

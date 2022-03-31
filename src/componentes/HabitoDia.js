@@ -12,15 +12,14 @@ export default function HabitoDia({
   id,
 }) {
   const { user } = useContext(UserContext);
-  const config = {
-    headers: {
-      Authorization: `Bearer ${user.token}`,
-    },
-  };
-
   async function clickHabito() {
-    if (done) {
+    if (done === 1) {
       let URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
       try {
         const promise = await axios.post(URL, config);
         const { data } = promise;
@@ -32,6 +31,11 @@ export default function HabitoDia({
       }
     } else {
       let URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
       try {
         const promise = await axios.post(URL, config);
         const { data } = promise;
@@ -54,9 +58,9 @@ export default function HabitoDia({
             <p>Seu recorde: {highestSequence} dias</p>
           </section>
         </section>
-        <div done={done} onClick={clickHabito}>
+        <Div done={done} onClick={clickHabito}>
           <img src={check} alt=""></img>
-        </div>
+        </Div>
       </ContainerHabito>
     </>
   );
@@ -82,17 +86,17 @@ const ContainerHabito = styled.div`
     font-size: 12.976px;
     line-height: 16px;
   }
+`;
 
-  div {
-    width: 69px;
-    height: 69px;
-    margin-right: 13px;
-    background: ${(props) => (!props.done ? "#EBEBEB" : "#8FC549")};
-    border: 1px solid #e7e7e7;
-    box-sizing: border-box;
-    border-radius: 5px;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-  }
+const Div = styled.div`
+  width: 69px;
+  height: 69px;
+  margin-right: 13px;
+  background: ${(props) => (props.done === 0 ? "#EBEBEB" : "#8FC549")};
+  border: 1px solid #e7e7e7;
+  box-sizing: border-box;
+  border-radius: 5px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 `;
