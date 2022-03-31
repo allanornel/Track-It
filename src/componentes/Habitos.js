@@ -56,15 +56,19 @@ export default function Habitos() {
     promise.catch((error) => console.log(error.data));
   }, [user.token, count]);
 
-  // function deleteHabito(id)  {
-  //   const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`
-  //   const config = {
-  //     headers: {
-  //       Authorization: `Bearer ${user.token}`,
-  //     },
-  //   };
-  //   const promise = await axios.request(URL);
-  // }
+  function deleteHabito(id) {
+    const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+    const promise = axios.delete(URL, config);
+    promise.then((response) => {
+      setCount(count + 1);
+    });
+    promise.catch((error) => console.log(error.data));
+  }
 
   return (
     <>
@@ -111,6 +115,7 @@ export default function Habitos() {
           {habitos.map((habito) => (
             <p key={habito.id}>
               {habito.id} {habito.name} {habito.days.map((day) => day + " ")}
+              <button onClick={() => deleteHabito(habito.id)}>EXCLUIR</button>
             </p>
           ))}
         </ContainerMain>
