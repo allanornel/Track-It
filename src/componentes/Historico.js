@@ -33,19 +33,20 @@ export default function Historico() {
 				{histHabitos.length === 0 ? (
 					<p>Em breve você poderá ver o histórico dos seus hábitos aqui!</p>
 				) : (
-					histHabitos.map((habito) => {
-						return (
-							<>
-								<p>Day: {habito.day} </p>
-								{habito.habits.map((habit) => (
-									<p>
-										id: {habit.id} name: {habit.name} date: {habit.date}{" "}
-										weekDay: {habit.weekDay} historyId: {habit.historyId}
-									</p>
-								))}
-							</>
-						);
-					})
+					<p>Em breve você poderá ver o histórico dos seus hábitos aqui!</p>
+					// histHabitos.map((habito) => {
+					// 	return (
+					// 		<>
+					// 			<p>Day: {habito.day} </p>
+					// 			{habito.habits.map((habit) => (
+					// 				<p>
+					// 					id: {habit.id} name: {habit.name} date: {habit.date}{" "}
+					// 					weekDay: {habit.weekDay} historyId: {habit.historyId}
+					// 				</p>
+					// 			))}
+					// 		</>
+					// 	);
+					// })
 				)}
 			</Container>
 			<Footer />

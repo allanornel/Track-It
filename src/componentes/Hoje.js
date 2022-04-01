@@ -27,7 +27,7 @@ export default function Hoje() {
 	// ERRO DE TENTAR USAR O useContext no porcentoHabito.
 	// setUser({ ...user, porcentoHabito });
 	// useEffect(
-	// 	() => setUser({ ...user, porcentoHabito }),
+	// 	() => setUser({ ...user, porcentagem: porcentoHabito }),
 	// 	[porcentoHabito, user, setUser]
 	// );
 
