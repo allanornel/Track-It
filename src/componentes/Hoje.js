@@ -27,13 +27,38 @@ export default function Hoje() {
 		promise.catch((error) => console.log(error.data));
 	}, [user.token, count]);
 
+	function ChecaHabitos() {
+		let total = habitos.length;
+		let habitosCheck = 0;
+		habitos.forEach((habito) => {
+			if (habito.done) habitosCheck++;
+		});
+		if (habitosCheck === 0)
+			return (
+				<>
+					<h3>Nenhum hábito concluído ainda</h3>
+				</>
+			);
+		else {
+			console.log(habitosCheck);
+			console.log(total);
+			let porcentoHabito = Math.ceil((habitosCheck / total) * 100);
+
+			return (
+				<>
+					<P>{porcentoHabito}% dos hábitos concluídos</P>
+				</>
+			);
+		}
+	}
+
 	return (
 		<>
 			<Header />
 			<Main>
 				<Container>
 					<h2>Segunda, 17/05</h2>
-					<p>Nenhum hábito concluído ainda</p>
+					<ChecaHabitos />
 				</Container>
 				<div>
 					{habitos.map((habito) => {
@@ -67,14 +92,19 @@ const Container = styled.div`
 		line-height: 29px;
 		color: #126ba5;
 	}
-	p {
+	h3 {
 		font-size: 17.976px;
 		line-height: 22px;
-
 		color: #bababa;
 	}
 `;
 
 const Main = styled.main`
 	margin: auto 18px;
+`;
+
+const P = styled.p`
+	font-size: 17.976px;
+	line-height: 22px;
+	color: #8fc549;
 `;

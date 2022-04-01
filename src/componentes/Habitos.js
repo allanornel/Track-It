@@ -7,6 +7,7 @@ import UserContext from "./../context/UserContext";
 import SelecaoDias from "./SelecaoDias";
 import ListaDiasHabito from "./ListaDiasHabito";
 import trash from "./../assets/img/trash.svg";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function Habitos() {
 	const { user } = useContext(UserContext);
@@ -16,9 +17,13 @@ export default function Habitos() {
 	const [count, setCount] = useState(0);
 	const days = [0, 1, 2, 3, 4, 5, 6];
 	const [criacao, setCriacao] = useState(false);
+	const [logando, setLogando] = useState(false);
+	const [disabled, setDisabled] = useState(false);
 
 	async function cadastroHabito(e) {
 		e.preventDefault();
+		setDisabled(true);
+		setLogando(true);
 		const URL =
 			"https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
 		const config = {
@@ -37,9 +42,13 @@ export default function Habitos() {
 			console.log(data);
 			setCount(count + 1);
 			setCriacao(!criacao);
+			setDisabled(false);
+			setLogando(false);
 		} catch (error) {
 			console.log(error.response);
 			console.log(error.response.status);
+			setDisabled(false);
+			setLogando(false);
 		}
 	}
 
@@ -89,6 +98,7 @@ export default function Habitos() {
 						<CriacaoHabito>
 							<form onSubmit={(e) => cadastroHabito(e)}>
 								<input
+									disabled={disabled}
 									value={name}
 									placeholder="nome do hábito"
 									required
@@ -108,8 +118,14 @@ export default function Habitos() {
 									})}
 								</Dias>
 								<section>
-									<p>Cancelar</p>
-									<button>Salvar</button>
+									<p onClick={() => setCriacao(!criacao)}>Cancelar</p>
+									<button disabled={disabled}>
+										{!logando ? (
+											"Salvar"
+										) : (
+											<ThreeDots width="30px" color="#FFFFFF" />
+										)}
+									</button>
 								</section>
 							</form>
 						</CriacaoHabito>
@@ -228,6 +244,9 @@ const CriacaoHabito = styled.div`
 	margin-bottom: 29px;
 
 	button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		font-size: 15.976px;
 		line-height: 20px;
 		text-align: center;

@@ -4,9 +4,11 @@ import styled from "styled-components";
 import { useState, useContext } from "react";
 import axios from "axios";
 import UserContext from "./../context/UserContext";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function PaginaInicial() {
 	const { setUser } = useContext(UserContext);
+	const [logando, setLogando] = useState(false);
 	const [disabled, setDisabled] = useState(false);
 	const [objLogin, setObjLogin] = useState({
 		email: "",
@@ -16,14 +18,13 @@ export default function PaginaInicial() {
 
 	async function login(e) {
 		e.preventDefault();
+		setLogando(true);
 		setDisabled(true);
 		const URL =
 			"https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login";
 		try {
 			const promise = await axios.post(URL, objLogin);
-
 			const { data } = promise;
-			console.log(data);
 			setUser({ token: data.token, image: data.image });
 			navigate("/hoje");
 		} catch (error) {
@@ -31,6 +32,7 @@ export default function PaginaInicial() {
 			console.log(error.response.status);
 			alert("Houve falha no Login!");
 			setDisabled(false);
+			setLogando(false);
 		}
 	}
 
@@ -59,7 +61,9 @@ export default function PaginaInicial() {
 							setObjLogin({ ...objLogin, password: e.target.value })
 						}
 					/>
-					<button>Entrar</button>
+					<button disabled={disabled}>
+						{!logando ? "Entrar" : <ThreeDots color="#FFFFFF" />}
+					</button>
 				</Form>
 				<Link to={"/cadastro"}>
 					<p>Não tem uma conta? Cadastre-se</p>
@@ -90,13 +94,19 @@ const Form = styled.form`
 	flex-direction: column;
 	margin-bottom: 25px;
 
-	* {
+	button {
 		width: 303px;
 		height: 45px;
 		margin-bottom: 6px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	input {
+		width: 303px;
+		height: 45px;
+		margin-bottom: 6px;
 		background: #ffffff;
 		border: 1px solid #d5d5d5;
 		border-radius: 5px;
