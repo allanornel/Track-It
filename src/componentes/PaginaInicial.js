@@ -6,112 +6,112 @@ import axios from "axios";
 import UserContext from "./../context/UserContext";
 
 export default function PaginaInicial() {
-  const { user, setUser } = useContext(UserContext);
-  const [disabled, setDisabled] = useState(false);
-  const [objLogin, setObjLogin] = useState({
-    email: "",
-    password: "",
-  });
-  const navigate = useNavigate();
+	const { setUser } = useContext(UserContext);
+	const [disabled, setDisabled] = useState(false);
+	const [objLogin, setObjLogin] = useState({
+		email: "",
+		password: "",
+	});
+	const navigate = useNavigate();
 
-  async function login(e) {
-    e.preventDefault();
-    setDisabled(true);
-    const URL =
-      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login";
-    try {
-      const promise = await axios.post(URL, objLogin);
+	async function login(e) {
+		e.preventDefault();
+		setDisabled(true);
+		const URL =
+			"https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login";
+		try {
+			const promise = await axios.post(URL, objLogin);
 
-      const { data } = promise;
-      console.log(data);
-      setUser({ token: data.token, image: data.image });
-      navigate("/hoje");
-    } catch (error) {
-      console.log(error.response);
-      console.log(error.response.status);
-      alert("Houve falha no Login!");
-      setDisabled(false);
-    }
-  }
+			const { data } = promise;
+			console.log(data);
+			setUser({ token: data.token, image: data.image });
+			navigate("/hoje");
+		} catch (error) {
+			console.log(error.response);
+			console.log(error.response.status);
+			alert("Houve falha no Login!");
+			setDisabled(false);
+		}
+	}
 
-  return (
-    <>
-      <Container>
-        <img src={logo} alt="" />
-        <Form onSubmit={(e) => login(e)}>
-          <input
-            type="email"
-            value={objLogin.email}
-            placeholder="email"
-            required
-            disabled={disabled}
-            onChange={(e) =>
-              setObjLogin({ ...objLogin, email: e.target.value })
-            }
-          />
-          <input
-            type="password"
-            value={objLogin.password}
-            placeholder="senha"
-            required
-            disabled={disabled}
-            onChange={(e) =>
-              setObjLogin({ ...objLogin, password: e.target.value })
-            }
-          />
-          <button>Entrar</button>
-        </Form>
-        <Link to={"/cadastro"}>
-          <p>Não tem uma conta? Cadastre-se</p>
-        </Link>
-      </Container>
-    </>
-  );
+	return (
+		<>
+			<Container>
+				<img src={logo} alt="" />
+				<Form onSubmit={(e) => login(e)}>
+					<input
+						type="email"
+						value={objLogin.email}
+						placeholder="email"
+						required
+						disabled={disabled}
+						onChange={(e) =>
+							setObjLogin({ ...objLogin, email: e.target.value })
+						}
+					/>
+					<input
+						type="password"
+						value={objLogin.password}
+						placeholder="senha"
+						required
+						disabled={disabled}
+						onChange={(e) =>
+							setObjLogin({ ...objLogin, password: e.target.value })
+						}
+					/>
+					<button>Entrar</button>
+				</Form>
+				<Link to={"/cadastro"}>
+					<p>Não tem uma conta? Cadastre-se</p>
+				</Link>
+			</Container>
+		</>
+	);
 }
 
 const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 68px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 68px;
 
-  p {
-    font-size: 13.976px;
-    line-height: 17px;
-    text-align: center;
-    text-decoration-line: underline;
-    color: #52b6ff;
-  }
+	p {
+		font-size: 13.976px;
+		line-height: 17px;
+		text-align: center;
+		text-decoration-line: underline;
+		color: #52b6ff;
+	}
 `;
 
 const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 25px;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 25px;
 
-  * {
-    width: 303px;
-    height: 45px;
-    margin-bottom: 6px;
-  }
+	* {
+		width: 303px;
+		height: 45px;
+		margin-bottom: 6px;
+	}
 
-  input {
-    background: #ffffff;
-    border: 1px solid #d5d5d5;
-    border-radius: 5px;
-    font-size: 19.976px;
-    line-height: 25px;
-    color: #dbdbdb;
-    padding-left: 10px;
-  }
+	input {
+		background: #ffffff;
+		border: 1px solid #d5d5d5;
+		border-radius: 5px;
+		font-size: 19.976px;
+		line-height: 25px;
+		color: #dbdbdb;
+		padding-left: 10px;
+	}
 
-  button {
-    background: #52b6ff;
-    border-radius: 4.63636px;
-    font-size: 20.976px;
-    line-height: 26px;
-    text-align: center;
-    color: #ffffff;
-  }
+	button {
+		background: #52b6ff;
+		border-radius: 4.63636px;
+		font-size: 20.976px;
+		line-height: 26px;
+		text-align: center;
+		color: #ffffff;
+	}
 `;
