@@ -76,8 +76,12 @@ const ContainerHabito = styled.div`
 	height: 94px;
 	display: flex;
 	align-items: center;
+
 	justify-content: space-between;
 	background: #ffffff;
+	margin-bottom: 10px;
+	margin-left: 18px;
+	margin-right: 18px;
 
 	border-radius: 5px;
 	color: #666666;

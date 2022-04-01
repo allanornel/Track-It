@@ -54,6 +54,8 @@ export default function Historico() {
 }
 
 const Container = styled.div`
+	background-color: #f2f2f2;
+	height: 100vh;
 	p {
 		font-weight: 400;
 		font-size: 17.976px;
@@ -66,7 +68,7 @@ const Container = styled.div`
 		font-size: 22.976px;
 		line-height: 29px;
 		color: #126ba5;
-		margin-top: 81px;
+		padding-top: 81px;
 		margin-bottom: 17px;
 	}
 `;
