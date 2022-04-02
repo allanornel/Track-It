@@ -24,13 +24,6 @@ export default function Hoje() {
 	let data = dayjs().format("DD/MM");
 	const [porcentoHabito, setPorcentoHabito] = useState(0);
 
-	// ERRO DE TENTAR USAR O useContext no porcentoHabito.
-	// setUser({ ...user, porcentoHabito });
-	// useEffect(
-	// 	() => setUser({ ...user, porcentagem: porcentoHabito }),
-	// 	[porcentoHabito, user, setUser]
-	// );
-
 	useEffect(() => {
 		const URL =
 			"https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today";
@@ -53,19 +46,15 @@ export default function Hoje() {
 		habitos.forEach((habito) => {
 			if (habito.done) habitosCheck++;
 		});
+		setPorcentoHabito(Math.ceil((habitosCheck / total) * 100));
+		// setUser({ ...user, porcentagem: Math.ceil((habitosCheck / total) * 100) });
 		if (habitosCheck === 0) {
-			setPorcentoHabito(Math.ceil((habitosCheck / total) * 100));
-
 			return (
 				<>
 					<h3>Nenhum hábito concluído ainda</h3>
 				</>
 			);
 		} else {
-			setPorcentoHabito(Math.ceil((habitosCheck / total) * 100));
-
-			console.log(porcentoHabito);
-
 			return (
 				<>
 					<P>{porcentoHabito}% dos hábitos concluídos</P>
@@ -73,6 +62,13 @@ export default function Hoje() {
 			);
 		}
 	}
+
+	// ERRO DE TENTAR USAR O useContext no porcentoHabito.
+	// setUser({ ...user, porcentagem: porcentoHabito });
+	// useEffect(
+	// 	() => setUser({ ...user, porcentagem: porcentoHabito }),
+	// 	[porcentoHabito, user, setUser]
+	// );
 
 	return (
 		<>
