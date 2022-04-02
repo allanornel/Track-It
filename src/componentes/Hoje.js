@@ -41,29 +41,6 @@ export default function Hoje() {
 		promise.catch((error) => console.log(error.data));
 	}, [user.token, count]);
 
-	// function ChecaHabitos() {
-	// 	let total = habitos.length;
-	// 	let habitosCheck = 0;
-	// 	habitos.forEach((habito) => {
-	// 		if (habito.done) habitosCheck++;
-	// 	});
-	// 	setPorcentoHabito(Math.ceil((habitosCheck / total) * 100));
-	// 	// setUser({ ...user, porcentagem: Math.ceil((habitosCheck / total) * 100) });
-	// 	if (habitosCheck === 0) {
-	// 		return (
-	// 			<>
-	// 				<h3>Nenhum hábito concluído ainda</h3>
-	// 			</>
-	// 		);
-	// 	} else {
-	// 		return (
-	// 			<>
-	// 				<P>{porcentoHabito}% dos hábitos concluídos</P>
-	// 			</>
-	// 		);
-	// 	}
-	// }
-
 	// ERRO DE TENTAR USAR O useContext no porcentoHabito.
 	// setUser({ ...user, porcentagem: porcentoHabito });
 	// useEffect(
